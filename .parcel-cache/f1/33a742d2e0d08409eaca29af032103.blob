@@ -1,0 +1,196 @@
+"use strict";
+
+var _preact = require("preact");
+
+var _hooks = require("preact/hooks");
+
+var fs = _interopRequireWildcard(require("tauri/api/fs"));
+
+var _jsxFileName = "/Users/akrolick/code/textdb/app/app.tsx";
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function App() {
+  const [err, setError] = (0, _hooks.useState)(null);
+  const [files, setFiles] = (0, _hooks.useState)([]);
+
+  const loadFiles = async () => {
+    const dirFiles = await fs.readDir("/Users/akrolick/code/personal/website/recipes/src/recipes").catch(setError);
+    setFiles(dirFiles);
+    console.log({
+      files
+    });
+  };
+
+  return /*#__PURE__*/React.createElement("div", {
+    class: "App container py-3 px-3",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15,
+      columnNumber: 5
+    }
+  }, /*#__PURE__*/React.createElement("h1", {
+    class: "title",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16,
+      columnNumber: 7
+    }
+  }, "TextDB"), /*#__PURE__*/React.createElement("p", {
+    class: "subtitle",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17,
+      columnNumber: 7
+    }
+  }, "Modern Times Are Here At Last"), err && /*#__PURE__*/React.createElement("div", {
+    class: "message is-danger",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19,
+      columnNumber: 9
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    class: "message-header",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20,
+      columnNumber: 11
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21,
+      columnNumber: 13
+    }
+  }, "Error"), /*#__PURE__*/React.createElement("button", {
+    class: "delete",
+    "aria-label": "delete",
+    onClick: () => {
+      setError(null);
+    },
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22,
+      columnNumber: 13
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    class: "message-body",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 30,
+      columnNumber: 11
+    }
+  }, err)), /*#__PURE__*/React.createElement("div", {
+    class: "field",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 33,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    class: "control",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 34,
+      columnNumber: 9
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    class: "input",
+    type: "text",
+    placeholder: "Input",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 11
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    class: "field",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 38,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    class: "control",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 39,
+      columnNumber: 9
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    class: "select",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 40,
+      columnNumber: 11
+    }
+  }, /*#__PURE__*/React.createElement("select", {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 41,
+      columnNumber: 13
+    }
+  }, files.map(f => {
+    return /*#__PURE__*/React.createElement("option", {
+      value: f.path,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 43,
+        columnNumber: 24
+      }
+    }, f.name);
+  }))))), /*#__PURE__*/React.createElement("div", {
+    class: "buttons",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 50,
+      columnNumber: 7
+    }
+  }, /*#__PURE__*/React.createElement("a", {
+    class: "button is-primary",
+    onClick: loadFiles,
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 51,
+      columnNumber: 9
+    }
+  }, "Load"), /*#__PURE__*/React.createElement("a", {
+    class: "button is-link",
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 54,
+      columnNumber: 9
+    }
+  }, "Link")));
+}
+
+(0, _preact.render)( /*#__PURE__*/React.createElement(App, {
+  __self: void 0,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 60,
+    columnNumber: 8
+  }
+}), document.body);

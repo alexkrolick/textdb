@@ -1,0 +1,11 @@
+.App {
+  height: 100vh;
+  overflow: hidden;
+  border: 1px inset #7a7a7a;
+}
+
+.FileList {
+  width: 20rem;
+  max-width: 100%;
+}
+/*# sourceMappingURL=app.0d117363.css.map */

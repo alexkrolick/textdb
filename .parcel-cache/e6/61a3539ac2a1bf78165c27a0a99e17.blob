@@ -1,0 +1,67 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.loadFile = exports.loadFolder = exports.pickFolder = exports.saveConfig = exports.loadConfig = void 0;
+
+var fs = _interopRequireWildcard(require("tauri/api/fs"));
+
+var dialog = _interopRequireWildcard(require("tauri/api/dialog"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const configDefaults = {
+  appVersion: "1",
+  lastDirectory: null
+};
+
+const loadConfig = async () => {
+  const content = localStorage.getItem("config");
+  const data = JSON.parse(content || "{}");
+  return { ...configDefaults,
+    ...data
+  };
+};
+
+exports.loadConfig = loadConfig;
+
+const saveConfig = async config => {
+  localStorage.setItem("config", JSON.stringify({ ...configDefaults,
+    ...config
+  }));
+  return Promise.resolve();
+};
+
+exports.saveConfig = saveConfig;
+
+const pickFolder = async () => {
+  const selection = await dialog.open({
+    directory: true,
+    multiple: false
+  });
+  return Array.isArray(selection) ? selection[0] : selection;
+};
+
+exports.pickFolder = pickFolder;
+
+const loadFolder = async path => {
+  return fs.readDir(path);
+};
+
+exports.loadFolder = loadFolder;
+
+const loadFile = async path => {
+  console.log({
+    path
+  });
+  const contents = await fs.readTextFile(path);
+  console.log({
+    contents
+  });
+  return contents;
+};
+
+exports.loadFile = loadFile;

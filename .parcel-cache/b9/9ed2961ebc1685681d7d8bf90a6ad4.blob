@@ -1,0 +1,6 @@
+.App {
+  height: 100vh;
+  overflow: hidden;
+  border: 2px solid red;
+}
+/*# sourceMappingURL=app.0d117363.css.map */

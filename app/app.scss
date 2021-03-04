@@ -1,0 +1,17 @@
+@import "variables.scss";
+
+.App {
+  height: 100vh;
+  overflow: hidden;
+  border: 1px inset $grey;
+}
+
+.FileList {
+  width: 20rem;
+  max-width: 100%;
+}
+
+.FilePanel {
+  max-width: 50rem;
+  margin: auto;
+}

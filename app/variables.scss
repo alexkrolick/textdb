@@ -1,0 +1,9 @@
+// Update Bulma's global variables:
+$family-sans-serif: -apple-system, BlinkMacSystemFont, sans-serif;
+$family-system: system;
+$primary: #222;
+$radius: 8px;
+$radius-small: $radius / 2;
+$radius-large: $radius * 2;
+
+@import "../node_modules/bulma/sass/utilities/initial-variables.sass";

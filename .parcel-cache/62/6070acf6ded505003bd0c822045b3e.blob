@@ -1,0 +1,5 @@
+.App {
+  height: 100vh;
+  overflow: hidden;
+  border: 1px inset #7a7a7a;
+}

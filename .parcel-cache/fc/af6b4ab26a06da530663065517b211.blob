@@ -1,0 +1,15 @@
+.App {
+  height: 100vh;
+  overflow: hidden;
+  border: 1px inset #7a7a7a;
+}
+
+.FileList {
+  width: 20rem;
+  max-width: 100%;
+}
+
+.FilePanel {
+  min-width: 30rem;
+  max-width: 20rem;
+}

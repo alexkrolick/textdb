@@ -1,0 +1,147 @@
+"use strict";
+
+var _preact = require("preact");
+
+var _hooks = require("preact/hooks");
+
+var _octiconsReact = require("@primer/octicons-react");
+
+var io = _interopRequireWildcard(require("./io"));
+
+require("./app.scss");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+// import { useMachine } from "@xstate/react";
+// interface ToggleContext {
+//   count: number;
+// }
+// const toggleMachine = createMachine<ToggleContext>({
+//   id: "toggle",
+//   initial: "inactive",
+//   context: {
+//     count: 0,
+//   },
+//   states: {
+//     inactive: {
+//       on: { TOGGLE: "active" },
+//     },
+//     active: {
+//       entry: assign({ count: (ctx) => ctx.count + 1 }),
+//       on: { TOGGLE: "inactive" },
+//     },
+//   },
+// });
+function reducer(state, action) {}
+
+function App() {
+  const [err, setError] = (0, _hooks.useState)(null);
+  const [status, setStatus] = (0, _hooks.useState)("Ready");
+  const [folder, setFolder] = (0, _hooks.useState)(null);
+  const [files, setFiles] = (0, _hooks.useState)([]);
+  (0, _hooks.useEffect)(function onLoad() {
+    const effect = async () => {
+      const {
+        lastDirectory
+      } = await io.loadConfig();
+
+      if (lastDirectory) {
+        setFolder({
+          path: lastDirectory
+        });
+      }
+    };
+
+    effect();
+  }, []);
+  (0, _hooks.useEffect)(function folderChange() {
+    const effect = async () => {
+      if (!folder?.path) return;
+      const dirFiles = await io.loadFolder(folder.path).catch(setError);
+
+      if (dirFiles) {
+        setFiles(dirFiles);
+        io.saveConfig({
+          lastDirectory: folder.path
+        });
+        setStatus("Opened folder");
+      }
+    };
+
+    effect();
+  }, [folder]);
+
+  const pickFolder = async () => {
+    const folderPath = await io.pickFolder();
+    setFolder({
+      path: folderPath
+    });
+  };
+
+  return (0, _preact.h)("div", {
+    className: "App is-flex is-flex-direction-column"
+  }, (0, _preact.h)("div", {
+    className: "p-2 is-flex is-flex-wrap-reverse"
+  }, (0, _preact.h)("div", {
+    className: "is-flex-shrink-1 is-flex-grow-1"
+  }, (0, _preact.h)("span", {
+    className: "icon-text"
+  }, (0, _preact.h)("span", {
+    className: "has-text-info icon"
+  }, (0, _preact.h)(_octiconsReact.WorkflowIcon, null)), " ", (0, _preact.h)("span", {
+    className: "has-text-dark is-size-7"
+  }, (0, _preact.h)("strong", null, folder?.path)))), (0, _preact.h)("div", {
+    className: "is-flex-grow-0 is-flex-shrink-0"
+  }, (0, _preact.h)("div", {
+    className: "buttons are-small"
+  }, (0, _preact.h)("button", {
+    class: "button has-text-grey-dark",
+    onClick: pickFolder
+  }, (0, _preact.h)(_octiconsReact.FileDirectoryIcon, {
+    "aria-label": "Change folder"
+  }))))), (0, _preact.h)("div", {
+    class: "is-flex-grow-1 is-flex is-flex-direction-row is-flex-wrap-wrap p-1"
+  }, (0, _preact.h)("div", {
+    className: "is-flex-grow-0 p-2 FileList"
+  }, (0, _preact.h)("p", {
+    class: "control has-icons-left"
+  }, (0, _preact.h)("input", {
+    class: "input is-info",
+    type: "text",
+    placeholder: "Search"
+  }), (0, _preact.h)("span", {
+    class: "icon is-left"
+  }, (0, _preact.h)(_octiconsReact.FilterIcon, null))), (0, _preact.h)("div", null, files && files.map(f => {
+    return (0, _preact.h)("div", {
+      class: "p-2",
+      tabIndex: "0"
+    }, (0, _preact.h)("span", {
+      class: "icon"
+    }, (0, _preact.h)(_octiconsReact.FileIcon, null)), f.name);
+  }))), (0, _preact.h)("div", {
+    className: "is-flex-grow-1 is-flex-shrink-0 p-2 m-2 card FilePanel"
+  }, "Hi")), (0, _preact.h)("nav", {
+    className: "level p-2 is-size-7"
+  }, (0, _preact.h)("div", {
+    className: "level-left"
+  }, err && (0, _preact.h)("span", {
+    className: "icon-text"
+  }, (0, _preact.h)("span", {
+    className: "has-text-danger icon"
+  }, (0, _preact.h)(_octiconsReact.InfoIcon, null)), " ", (0, _preact.h)("span", {
+    className: "has-text-dark"
+  }, (0, _preact.h)("strong", null, err?.message), " ")), (0, _preact.h)("span", {
+    className: "has-text-dark"
+  }, status)), (0, _preact.h)("div", {
+    class: "level-right"
+  }, err && (0, _preact.h)("button", {
+    class: "button is-small is-white is-rounded",
+    onClick: () => setError(null)
+  }, (0, _preact.h)(_octiconsReact.XCircleIcon, {
+    "aria-label": "Clear"
+  })))));
+}
+
+(0, _preact.render)((0, _preact.h)(App, null), document.body);

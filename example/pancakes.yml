@@ -1,0 +1,14 @@
+id: pancakes
+title: Pancakes
+cook_time: 10M
+prep_time: 5M
+ingredients:
+  - 1 cup flour
+  - 1 tsp baking soda
+  - 1 tbsp sugar
+  - 1 egg
+  - 3/4 cup milk
+  - 1 tbsp oil
+steps:
+  - Mix up the ingredients in a bowl
+  - Cook on a skillet over medium low

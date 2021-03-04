@@ -1,0 +1,7 @@
+.App {
+  height: 100vh;
+  overflow: hidden;
+  border: 1px inset #7a7a7a;
+  display: flex;
+}
+/*# sourceMappingURL=app.0d117363.css.map */
